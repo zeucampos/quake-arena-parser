@@ -1,0 +1,21 @@
+body {
+  font-family: 'Roboto', sans-serif;
+  background: #dfdfdf;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 !important;
+}
+
+.margin-top-large {
+  margin-top: 60px;
+}
+
+.margin-top-medium {
+  margin-top: 30px;
+}
+
+.margin-top-small {
+  margin-top: 20px;
+}
+/*# sourceMappingURL=main.css.map */
