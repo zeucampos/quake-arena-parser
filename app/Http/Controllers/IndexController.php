@@ -17,7 +17,7 @@ class IndexController extends Controller
     // Index view
     public function index()
     {
-        $document = $this->service->getFile();
+        $document = $this->service->storeContent();
         return $document;
     }
 }
