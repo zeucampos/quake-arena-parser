@@ -2,8 +2,17 @@
 
 namespace App\Services;
 
+use App\Services\Data\ActionType;
+
 class ReaderService
 {
+    protected $service;
+
+
+    public function __construct(ActionType $service)
+    {
+        $this->service = $service;
+    }
 
     // Get file and manage index array to save values
     public function storeContent()
@@ -13,25 +22,33 @@ class ReaderService
         try {
             foreach($file as $row) {
                 $obj = explode(' ', $row);
-                $index = 0;
-
-                (!empty($obj[1])) ? $index=1 : $index=2;
-
-                $this->getType($obj, $index);
+                $this->getType($obj,$row);
             }
         } catch (\Exception $e) {
             throw $e;
         }
 
-       return true;
+       return $this->service->getResult();
     }
 
     // Get type action
-    public function getType($obj, $index)
+    public function getType($obj, $row)
     {
-        $hour       = $obj[$index];
-        $typeAction = $obj[$index + 1];
+        $obj = $this->removeEmpty($obj);
+        $hour       = $obj[0];
+        $typeAction = $obj[1];
 
-        dd($typeAction);
+        return $this->service->performAction($typeAction, $obj, $row);
+    }
+
+
+    public function removeEmpty($array)
+    {
+        $newData = [];
+        foreach($array as $item){
+            if(!empty($item))
+                array_push($newData,  preg_replace('/[^A-Za-z0-9\-]/', '', $item));
+        }
+        return $newData;
     }
 }
