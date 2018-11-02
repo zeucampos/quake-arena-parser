@@ -14,7 +14,7 @@ class ReaderService
         $this->service = $service;
     }
 
-    // Get file and manage index array to save values
+    // Corre cada linha do arquivo e a divide por espaços em um array
     public function storeContent()
     {
         $file = file("https://gist.githubusercontent.com/labmorales/7ebd77411ad51c32179bd4c912096031/raw/045192ef9ff87ed87b36eda3170056485cfbdb5a/games.log") or die("Unable to open file!");
@@ -22,7 +22,7 @@ class ReaderService
         try {
             foreach($file as $row) {
                 $obj = explode(' ', $row);
-                $this->getType($obj,$row);
+                $game = $this->getType($obj,$row);
             }
         } catch (\Exception $e) {
             throw $e;
@@ -31,17 +31,15 @@ class ReaderService
        return $this->service->getResult();
     }
 
-    // Get type action
     public function getType($obj, $row)
     {
         $obj = $this->removeEmpty($obj);
-        $hour       = $obj[0];
         $typeAction = $obj[1];
 
         return $this->service->performAction($typeAction, $obj, $row);
     }
 
-
+    // Cria um novo array vazio e somente insere nele posições com valor
     public function removeEmpty($array)
     {
         $newData = [];

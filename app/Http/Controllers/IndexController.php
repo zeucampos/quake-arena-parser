@@ -7,17 +7,18 @@ use \App\Services\ReaderService;
 
 class IndexController extends Controller
 {
-    protected $service;
+    protected $reader;
 
-    public function __construct(ReaderService $service)
+    public function __construct(ReaderService $reader)
     {
-        $this->service = $service;
+        $this->reader = $reader;
     }
 
     // Index view
     public function index()
     {
-        $document = $this->service->storeContent();
+        $document = $this->reader->storeContent();
+
         return $document;
     }
 }

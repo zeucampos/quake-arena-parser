@@ -2,20 +2,21 @@
 
 namespace App\Services\Data;
 
-class ActionType {
+class ActionType
+{
     const KILL = 'Kill';
     const START = 'Kill';
     const END = 'Kill';
     const DISCONNECT_CLIENT = 'Kill';
 
+    protected $gameService;
+
     private $resultObject;
     private $gameIndex;
+    private $gameName;
 
-    public $data = [
-        'Kill' => ['name' => 'morte', 'exec' => 'countKill'],
-        'Kill' => ['name' => 'morte', 'exec' => 'countKill'],
-        'Kill' => ['name' => 'morte', 'exec' => 'countKill'],
-        'Kill' => ['name' => 'morte', 'exec' => 'countKill'],
+    public $actions = [
+        'Kill' => ['exec' => 'countKill'],
         'InitGame' => ['exec' => 'newGame'],
         'ShutdownGame' => ['exec' => 'endGame']
     ];
@@ -28,9 +29,9 @@ class ActionType {
 
     public function performAction($actionRaw, $obj, $rawLine)
     {
-        if(isset($this->data[$actionRaw])){
-            $action = $this->data[$actionRaw]['exec'];
-            call_user_func_array([$this,$action], [$obj, $rawLine]);
+        if (isset($this->actions[$actionRaw])) {
+            $action = $this->actions[$actionRaw]['exec'];
+            call_user_func_array([$this, $action], [$obj, $rawLine]);
         }
     }
 
@@ -42,10 +43,14 @@ class ActionType {
             'kills' => []
         ];
         array_push($this->resultObject, $init);
-
     }
+
     public function endGame()
     {
+        $this->gameName = "game_".$this->gameIndex;
+
+        if(!empty($this->resultObject['players']))
+            $this->gameService->create($this->gameName, $this->resultObject);
         $this->gameIndex++;
     }
 
@@ -57,7 +62,7 @@ class ActionType {
     public function countKill($obj, $rawLine)
     {
         // SE FOR MORTDE DO MUNDO //
-        if(strpos($rawLine, '1022'))
+        if (strpos($rawLine, '1022'))
             $this->setWorldKillName($rawLine);
         else
             $this->setDefaultKillName($rawLine);
@@ -68,15 +73,15 @@ class ActionType {
     private function setDefaultKillName($rawLine)
     {
         $init = strrpos($rawLine, ':') + 2;
-        $filter = substr($rawLine,$init, strlen($rawLine));
+        $filter = substr($rawLine, $init, strlen($rawLine));
         $parts = explode('killed', $filter);
-        $playerName = str_replace(' ','',$parts[0]);
+        $playerName = str_replace(' ', '', $parts[0]);
 
         $this->setPlayers($playerName);
 
-        if(!isset($this->resultObject[$this->gameIndex]['kills'][$playerName])){
+        if (!isset($this->resultObject[$this->gameIndex]['kills'][$playerName])) {
             $this->resultObject[$this->gameIndex]['kills'][$playerName] = 1;
-        }else{
+        } else {
             $this->resultObject[$this->gameIndex]['kills'][$playerName]++;
         }
     }
@@ -84,22 +89,22 @@ class ActionType {
     private function setWorldKillName($rawLine)
     {
         $init = strpos($rawLine, 'killed');
-        $filter = substr($rawLine,$init, strlen($rawLine));
+        $filter = substr($rawLine, $init, strlen($rawLine));
         $parts = explode('by', $filter);
         $playerName = str_replace(' ', '', str_replace('killed', '', $parts[0]));
 
         $this->setPlayers($playerName);
 
-        if(!isset($this->resultObject[$this->gameIndex]['kills'][$playerName])){
+        if (!isset($this->resultObject[$this->gameIndex]['kills'][$playerName])) {
             $this->resultObject[$this->gameIndex]['kills'][$playerName] = -1;
-        }else{
+        } else {
             $this->resultObject[$this->gameIndex]['kills'][$playerName]--;
         }
     }
 
     private function setPlayers($playerName)
     {
-        if(!in_array($playerName, $this->resultObject[$this->gameIndex]['players'])){
+        if (!in_array($playerName, $this->resultObject[$this->gameIndex]['players'])) {
             array_push($this->resultObject[$this->gameIndex]['players'], $playerName);
         }
     }
