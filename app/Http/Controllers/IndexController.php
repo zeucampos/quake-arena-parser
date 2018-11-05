@@ -22,7 +22,10 @@ class IndexController extends Controller
     // Index view
     public function index(Request $request)
     {
-        // $this->reader->storeContent();
+        $players = Player::all();
+        if(count($players) < 1)
+            $this->reader->storeContent();
+
         $ranking = $this->playerService->index($request->all());
 
         return view('index', compact('ranking'));

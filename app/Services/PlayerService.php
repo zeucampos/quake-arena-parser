@@ -5,6 +5,7 @@ namespace App\Http\Services;
 use App\Player;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Request;
+use App\Kill;
 
 class PlayerService
 {
@@ -37,11 +38,24 @@ class PlayerService
 
     public function index($data)
     {
-        $query = $this->model->select('*');
+        $query = Player::with(['kills' => function ($query) {
+            $query->select(['killer', DB::raw('SUM(score) AS kills')]);
+            $query->groupBy(['killer']);
+        }])->with(['deads' => function ($query){
+            $query->select(['dead', DB::raw('SUM(score) AS deads')]);
+            $query->groupBy(['dead']);
+        }]);
 
-        if(!empty($data['name']))
-            $query->where('name', $data['name']);
+        if(isset($data['name']))
+            $query->where('name', 'LIKE', '%'. $data['name'] .'%');
 
-        return $query->get();
+        $players = $query->get();
+
+        $players->map(function($item, $key)  {
+            $item->score = $item->kills->first()->kills + $item->deads->first()->deads;
+            return $item;
+        });
+
+        return $players->sortByDesc('score');
     }
 }

@@ -10,7 +10,7 @@
                     <div class="input-group input-group-lg margin-top-medium">
                         <input type="text" class="form-control" name="name" placeholder="Busca por nome" aria-describedby="button-addon">
                         <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" id="button-addon">Buscar</button>
+                            <button class="btn btn-outline-secondary" type="submit" id="button-addon">Buscar</button>
                         </div>
                     </div>
                 </form>
@@ -57,11 +57,17 @@
                         @foreach ($ranking as $player)
                         <tr>
                             <td>{{ $player->name }}</td>
-                            <td class="text-right">{{ count($player->kills) - count($player->deads) }}</td>
+                            <td class="text-right">{{ $player->score }}</td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
+
+                <div class="text-center">
+                   @if(request()->get('name'))
+                        <a href="{{url('/')}}">Remover filtros</a>
+                   @endif
+                </div>
             </div>
         </div>
     </div>

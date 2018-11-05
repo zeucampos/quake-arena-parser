@@ -8,7 +8,8 @@ use App\Http\Services\PlayerService;
 use App\Game;
 
 
-class ActionType {
+class ActionType
+{
 
     protected $gameService;
     protected $playerService;
@@ -60,8 +61,7 @@ class ActionType {
     {
         $this->resultObject[$this->gameIndex]['id'] = $this->gameIndex;
 
-        if(!$this->debug)
-            $this->gameService->store($this->resultObject[$this->gameIndex]);
+        $this->gameService->store($this->resultObject[$this->gameIndex]);
 
         $this->gameIndex++;
     }
@@ -103,7 +103,7 @@ class ActionType {
         $this->setPlayers($playerName);
         $this->killByMean($type);
 
-        $final['type'] = 'O player '. $final['killer'] .' matou '.$kill[0].' '.MeansDeath::$dictionary[$type];
+        $final['type'] = 'O player ' . $final['killer'] . ' matou ' . $kill[0] . ' ' . MeansDeath::$dictionary[$type];
 
         if (!isset($this->resultObject[$this->gameIndex]['kills'][$playerName])) {
             $this->resultObject[$this->gameIndex]['kills'][$playerName] = 1;
@@ -111,8 +111,7 @@ class ActionType {
             $this->resultObject[$this->gameIndex]['kills'][$playerName]++;
         }
 
-        if(!$this->debug)
-            $this->killService->store($final);
+        $this->killService->store($final);
     }
 
     private function killByMean($kill)
@@ -141,7 +140,7 @@ class ActionType {
 
         $type = str_replace(["\n", "\r"], "", $parts[1]);
 
-        $final['type'] = 'O player '. $final['dead'] .' morreu '. MeansDeath::$dictionary[$type];
+        $final['type'] = 'O player ' . $final['dead'] . ' morreu ' . MeansDeath::$dictionary[$type];
 
         $this->setPlayers($playerName);
         $this->killByMean($type);
@@ -152,8 +151,7 @@ class ActionType {
             $this->resultObject[$this->gameIndex]['kills'][$playerName]--;
         }
 
-        if(!$this->debug)
-            $this->killService->store($final);
+        $this->killService->store($final);
     }
 
     private function clearSpaces(&$item)
@@ -169,7 +167,6 @@ class ActionType {
             array_push($this->resultObject[$this->gameIndex]['players'], $playerName);
         }
 
-        if(!$this->debug)
-            $this->playerService->store($playerName);
+        $this->playerService->store($playerName);
     }
 }
