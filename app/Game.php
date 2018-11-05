@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Game extends Model
 {
-    protected $fillable = ['name', 'total_kills'];
+    public $timestamps = false;
+
+    protected $fillable = ['id', 'total_kills'];
 
     public function players() {
         return $this->hasMany(Player::class, 'game_id', 'id');

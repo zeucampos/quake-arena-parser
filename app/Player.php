@@ -6,5 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Player extends Model
 {
-    protected $fillable = ['name', 'game_id'];
+    public $timestamps = false;
+
+    protected $fillable = ['name'];
+
+    public function kills() {
+        return $this->hasMany(Kill::class, 'killer', 'name');
+    }
+
+    public function deads() {
+        return $this->hasMany(Kill::class, 'dead', 'name');
+    }
 }

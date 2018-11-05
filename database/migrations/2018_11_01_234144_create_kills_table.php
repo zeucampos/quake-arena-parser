@@ -15,11 +15,10 @@ class CreateKillsTable extends Migration
     {
         Schema::create('kills', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('game_id')->unsigned();
-            $table->foreign('game_id')->references('id')->on('games');
+            $table->integer('game_id');
             $table->string('killer');
             $table->string('type');
-            $table->string('dead');
+            $table->string('dead')->nullable();
             $table->integer('score');
         });
     }

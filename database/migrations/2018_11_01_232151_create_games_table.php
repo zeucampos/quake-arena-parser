@@ -14,8 +14,7 @@ class CreateGamesTable extends Migration
     public function up()
     {
         Schema::create('games', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name');
+            $table->integer('id');
             $table->integer('total_kills');
         });
     }

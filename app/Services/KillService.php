@@ -2,13 +2,13 @@
 
 namespace App\Http\Services;
 
-use App\Game;
+use App\Kill;
 
-class GameService {
+class KillService {
 
     protected $model;
 
-    public function __construct(Game $model) {
+    public function __construct(Kill $model) {
         $this->model = $model;
     }
 
