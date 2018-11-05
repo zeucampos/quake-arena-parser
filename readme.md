@@ -41,6 +41,6 @@ A aplicação iniciará os serviços na porta 8000, caso não esteja sendo utili
 $ php artisan serve --port 8001
 ```
 
-<br/>
+
 Ao acessar a aplicação __localhost:8000__ pela primeira vez ela irá popular o banco de dados com os logs de mortes, players e partidas de jogos.
 
