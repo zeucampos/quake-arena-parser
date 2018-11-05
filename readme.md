@@ -9,7 +9,8 @@ $ composer install
 
 
 No diretório do projeto, crie um arquivo com o nome ".env" com o seguinte conteúdo:
-```APP_NAME=Laravel
+``` text
+APP_NAME=Laravel
 APP_ENV=local
 APP_KEY=base64:gKBDiT0xH0brtZzUPY0GKTDmq+nuQIYenI0guRDqA9o=
 APP_DEBUG=true
@@ -40,6 +41,6 @@ A aplicação iniciará os serviços na porta 8000, caso não esteja sendo utili
 $ php artisan serve --port 8001
 ```
 
-\
+<br/>
 Ao acessar a aplicação __localhost:8000__ pela primeira vez ela irá popular o banco de dados com os logs de mortes, players e partidas de jogos.
 
