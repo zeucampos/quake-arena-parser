@@ -30,6 +30,11 @@ Para __DB_DATABASE__ informe o nome do banco de dados criado.
 Para __DB_USERNAME__ informe o nome de usuário para acesso ao banco.
 Para __DB_PASSWORD__ informe a senha de acesso.
 
+Ainda no diretório do projeto, rode as migrations, assim criando as tabelas no banco de dados, usando o seguinte comando: 
+``` shell
+$ php artisan migrate
+```
+
 Em seguida inicie o servidor usando o comando do artisan:
 ``` shell
 $ php artisan serve
