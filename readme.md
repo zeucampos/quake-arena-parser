@@ -1,3 +1,6 @@
+Este projeto faz a leitura de um arquivo de logs do jogo Quake Arena e traduz de forma amigável e visual para saber quem pontuou mais e como se deu esta pontuação.
+
+##
 ### Configuração do projeto
 
 Para iniciar, crie uma base de dados (MySql) com o nome que preferir.
@@ -41,7 +44,7 @@ $ php artisan serve
 ```
 
 
-A aplicação iniciará os serviços na porta 8000, caso não esteja sendo utilizada. Se isto acontecer, informe a porta que deseja utilizar da seguinte forma
+A aplicação iniciará os serviços na porta 8000, caso não esteja sendo utilizada. Se isto acontecer, informe a porta que deseja utilizar da seguinte forma:
 ``` shell
 $ php artisan serve --port 8001
 ```
