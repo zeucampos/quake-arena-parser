@@ -1,5 +1,7 @@
 Este projeto faz a leitura de um arquivo de logs do jogo Quake Arena e traduz de forma amigável e visual para saber quem pontuou mais e como se deu esta pontuação.
 
+[Arquivo de logs](https://gist.githubusercontent.com/labmorales/7ebd77411ad51c32179bd4c912096031/raw/045192ef9ff87ed87b36eda3170056485cfbdb5a/games.log)
+
 ##
 ### Configuração do projeto
 
