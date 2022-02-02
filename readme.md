@@ -31,9 +31,8 @@ DB_USERNAME=root
 DB_PASSWORD=
 ```
 
-Para __DB_DATABASE__ informe o nome do banco de dados criado.
-Para __DB_USERNAME__ informe o nome de usuário para acesso ao banco.
-Para __DB_PASSWORD__ informe a senha de acesso.
+__DB_USERNAME__: usuário do banco de dados.
+__DB_PASSWORD__: senha do banco de dados.
 
 Ainda no diretório do projeto, rode as migrations, assim criando as tabelas no banco de dados, usando o seguinte comando: 
 ``` shell
