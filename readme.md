@@ -5,7 +5,7 @@ Este projeto faz a leitura de um arquivo de logs do jogo Quake Arena e traduz de
 ##
 ### Configuração do projeto
 
-Para iniciar, crie uma base de dados (MySql) com o nome que preferir.
+Para iniciar, crie uma base de dados (MySql) com o nome **parser_db**.
 
 Clone o projeto, acesse seu diretório e rode o comando:
 ``` shell
